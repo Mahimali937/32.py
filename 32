@@ -1,0 +1,24 @@
+#Name:Mahim Ali
+#Email:mahim.ali32@myhunter.cuny.edu
+#Date:November 1,2022
+#This program prints average number of plans by region
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+pop = pd.read_csv("country_internet.csv")
+x = pop.groupby("Continental region")
+print(x['NO. OF Internet Plans'].mean())
+print("possible region are")
+print(x.groups.keys())
+region = input("choose a region ")
+print("maximum number of internet plans:", x.get_group(region)['NO. OF Internet Plans'].max())
+print("minimum number of internet plans:", x.get_group(region)['NO. OF Internet Plans'].min())
+print("Country in the region:", x.get_group(region)['Country'].count())
+
+z=input("Enter output file name: ")
+x.get_group(region).plot.bar(x = 'Country', y = 'NO. OF Internet Plans')
+plt.gcf().subplots_adjust(bottom=0.25)
+plt.xlabel("Country in "+ region)
+plt.ylabel("No. OF Internet Plans")
+plt.savefig(z)
